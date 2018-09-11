@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ABND_Project_9</string>
+    <string name="app_name">ABND Project 9</string>
 
     <!-- Label for overflow menu option that inserts fake book data into the app [CHAR LIMIT=20] -->
     <string name="action_insert_dummy_data">Insert Dummy Data</string>

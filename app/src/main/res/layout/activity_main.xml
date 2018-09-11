@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/list_item_text"
     tools:context=".MainActivity">
 
     <ListView
@@ -55,5 +56,5 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_action_edit" />
+        android:src="@drawable/ic_note_add" />
 </RelativeLayout>
