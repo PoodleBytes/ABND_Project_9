@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">ABND_Project_9</string>
+
+    <!-- Label for overflow menu option that inserts fake book data into the app [CHAR LIMIT=20] -->
+    <string name="action_insert_dummy_data">Insert Dummy Data</string>
+
+    <!-- Label for overflow menu option that deletes all book data in the app [CHAR LIMIT=20] -->
+    <string name="action_delete_all_entries">Delete All Books</string>
+
+    <!-- Title text for the empty view, which describes the empty dog house image [CHAR LIMIT=50] -->
+    <string name="empty_view_title_text">NO BOOKS</string>
+
+    <!-- Subtitle text for the empty view that prompts the user to add a book [CHAR LIMIT=50] -->
+    <string name="empty_view_subtitle_text">Get started by adding a book</string>
+
+    <!-- Title for the activity to add a new book [CHAR LIMIT=20] -->
+    <string name="editor_activity_title_new_book">Add a Book</string>
+
+    <!-- Title for the activity to edit an existing book [CHAR LIMIT=20] -->
+    <string name="editor_activity_title_edit_book">Edit Book</string>
+
+    <!-- Label for editor menu option to save book and leave editor [CHAR LIMIT=20] -->
+    <string name="action_save">Save</string>
+
+    <!-- Label for editor overflow menu option that deletes the current book [CHAR LIMIT=20] -->
+    <string name="action_delete">Delete</string>
+
+    <!-- Toast message in editor when new book has been successfully inserted [CHAR LIMIT=NONE] -->
+    <string name="editor_insert_book_successful">Book saved</string>
+
+    <!-- Toast message in editor when new book has failed to be inserted [CHAR LIMIT=NONE] -->
+    <string name="editor_insert_book_failed">Error saving book</string>
+
+    <!-- Toast message in editor when current book was successfully updated [CHAR LIMIT=NONE] -->
+    <string name="editor_update_book_successful">Book updated</string>
+
+    <!-- Toast message in editor when current book has failed to be updated [CHAR LIMIT=NONE] -->
+    <string name="editor_update_book_failed">Error with updating book</string>
+
+    <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+    <string name="discard">Discard</string>
+    <string name="keep_editing">Keep Editing</string>
+
+    <!-- Toast message in editor when current book was successfully deleted [CHAR LIMIT=NONE] -->
+    <string name="editor_delete_book_successful">Book deleted</string>
+    <string name="number_unknown">T.B.D.</string>
+    <string name="supplier_unknown">T.B.D.</string>
+    <string name="supplier_phone_unknown">N/A</string>
+    <!-- Toast message in editor when current book has failed to be deleted [CHAR LIMIT=NONE] -->
+    <string name="editor_delete_book_failed">Error with deleting book</string>
+    <string name="delete_dialog_msg">Delete this book?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Text hint for name field in the editor [CHAR LIMIT=30] -->
+    <string name="edit_title">Edit Book</string>
+    <string name="hint_book_name">Title</string>
+    <string name="hint_book_price">Price</string>
+    <string name="hint_book_qty">Quantity</string>
+    <string name="hint_book_supplier">Supplier</string>
+    <string name="hint_book_supplier_phone">Supplier Phone</string>
+
+
+</resources>
