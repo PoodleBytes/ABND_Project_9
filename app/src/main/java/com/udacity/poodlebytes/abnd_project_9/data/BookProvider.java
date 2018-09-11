@@ -97,8 +97,7 @@ public class BookProvider extends ContentProvider {
     }
 
     /**
-     * Insert a pet into the database with the given content values. Return the new content URI
-     * for that specific row in the database.
+     * Insert a record into the database & return the new content URI
      */
     private Uri insertBook(Uri uri, ContentValues values) {
 
@@ -115,21 +114,13 @@ public class BookProvider extends ContentProvider {
         if (qty != null && qty < 0) {
             throw new IllegalArgumentException("Book requires valid quantity");
         }
-        String supplier = values.getAsString(BookEntry.COLUMN_BOOK_SUPPLIER);
-        if (supplier == null) {
-            supplier = "T.B.D.";
-        }
-        String supplier_ph = values.getAsString(BookEntry.COLUMN_BOOK_SUPPLIER_PHONE);
-        if (supplier_ph == null) {
-            supplier_ph = "N/A";
-        }
 
         // Get writeable database
         SQLiteDatabase database = dBHelper.getWritableDatabase();
 
         // Insert the new book with the given values
         long id = database.insert(BookEntry.TABLE_NAME, null, values);
-        // If the ID is -1, then the insertion failed. Log an error and return null.
+        // If ID = -1,  insertion failed. Log an error and return null.
         if (id == -1) {
             Log.e(LOG_TAG, "Failed to insert row for " + uri);
             return null;
@@ -138,11 +129,9 @@ public class BookProvider extends ContentProvider {
         // Notify all listeners that the data has changed for the book content URI
         getContext().getContentResolver().notifyChange(uri, null);
 
-        // Return the new URI with the ID (of the newly inserted row) appended at the end
-        // return the new URI with the ID appended to the end of it
+        // Return the new URI with the ID with the ID appended to the end of it
         return ContentUris.withAppendedId(uri, id);
     }
-
 
     /**
      * Updates the data at the given selection and selection arguments, with the new ContentValues.

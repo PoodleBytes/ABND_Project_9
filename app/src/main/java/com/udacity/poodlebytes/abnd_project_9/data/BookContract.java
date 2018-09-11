@@ -14,7 +14,7 @@ public final class BookContract {
     public static final String PATH_BOOKS = "books";
 
 
-    //  prevent accidentally instantiating the contract class,
+    //  prevent accidentally instantiating the class,
     private BookContract() {
         throw new AssertionError("No BookContract instances for you!");
     }

@@ -49,14 +49,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         dBHelper = new BookDbHelper(this);
         Log.i(TAG, "JR On Create");
 
-        // Find the ListView which will be populated with the pet data
         ListView bookListView = findViewById(R.id.list);
 
-        // Find and set empty view on the ListView, so that it only shows when the list has 0 items.
+        //empty view on the ListView
         View emptyView = findViewById(R.id.empty_view);
         bookListView.setEmptyView(emptyView);
 
-        // Setup the item click listener
         bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -74,9 +72,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }//end onCreate
 
     private void insertBooks() {
+        //insert 'dummy' data
         Log.i(TAG, "JR Start InsertBooks");
-        // Gets the database in write mode
-        // SQLiteDatabase db = dBHelper.getWritableDatabase();
+
         for (int b = 0; b < NUM_BOOKS; b++) {
             // Create a ContentValues object where column names are the keys,
             // and Toto's pet attributes are the values.
@@ -93,17 +91,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     /**
-     * Helper method to delete all pets in the database.
+     * Helper method to delete all records in the database.
      */
     private void deleteAllBooks() {
         int rowsDeleted = getContentResolver().delete(BookEntry.CONTENT_URI, null, null);
-        Log.v("CatalogActivity", rowsDeleted + " rows deleted from pet database");
+        Log.v("CatalogActivity", rowsDeleted + " rows deleted from the database");
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu options from the res/menu/menu_catalog.xml file.
-        // This adds menu items to the app bar.
+        // Inflate and add menu items to the app bar.
         getMenuInflater().inflate(R.menu.menu_catalog, menu);
         return true;
     }
@@ -112,11 +109,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public boolean onOptionsItemSelected(MenuItem item) {
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
-            // Respond to a click on the "Insert dummy data" menu option
+            //  "Insert dummy data" menu option
             case R.id.action_insert_dummy_data:
                 insertBooks();
                 return true;
-            // Respond to a click on the "Delete all entries" menu option
+            // "Delete all entries" menu option
             case R.id.action_delete_all_entries:
                 deleteAllBooks();
                 return true;

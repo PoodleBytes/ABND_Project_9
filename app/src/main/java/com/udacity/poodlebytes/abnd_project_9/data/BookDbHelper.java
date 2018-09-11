@@ -47,7 +47,7 @@ public class BookDbHelper extends SQLiteOpenHelper {
 
         // Execute the SQL statement
         db.execSQL(SQL_CREATE_BOOKS_TABLE);
-        Log.i(TAG, "JR onCreateSQL: " + SQL_CREATE_BOOKS_TABLE); //Charles - copy & paste this SQL statement works in SQLite
+        Log.i(TAG, "JR onCreateSQL: " + SQL_CREATE_BOOKS_TABLE);
     }
 
     /**
@@ -55,6 +55,6 @@ public class BookDbHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // v1 - nothing to do
+        // v1 - nothing to do!
     }
 }
