@@ -24,6 +24,8 @@
 
     <!-- Label for editor overflow menu option that deletes the current book [CHAR LIMIT=20] -->
     <string name="action_delete">Delete</string>
+    <string name="action_delete_book">Delete this Book?</string>
+    <string name="action_cancel_delete">Cancel</string>
 
     <!-- Toast message in editor when new book has been successfully inserted [CHAR LIMIT=NONE] -->
     <string name="editor_insert_book_successful">Book saved</string>
@@ -45,6 +47,7 @@
     <string name="main_qty">Quantiy: </string>
     <string name="main_price">Price: $</string>
     <string name="main_sale">Sale!</string>
+
 
     <!-- Toast message in editor when current book was successfully deleted [CHAR LIMIT=NONE] -->
 

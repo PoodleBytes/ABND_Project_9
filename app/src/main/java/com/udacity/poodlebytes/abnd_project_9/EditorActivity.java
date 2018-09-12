@@ -16,6 +16,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -157,12 +158,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 callPhone();
             }
         });
-
-
-
     }//end onCreate
-
-    //handle buttons
 
     private void saveBook() {
         // Read from input fields
@@ -222,14 +218,15 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                         Toast.LENGTH_SHORT).show();
             }
         }
-    }
+        finish();
+    }//end saveBook
 
     private void deleteBook() {
+        Log.i(TAG, "JR - start deleteBook");
         // Only perform the delete if this is an existing book.
         if (currentBookUri != null) {
             // Call the ContentResolver to delete the book for the given content URI.
             int rowsDeleted = getContentResolver().delete(currentBookUri, null, null);
-
             // Show a toast message depending on whether or not the delete was successful.
             if (rowsDeleted == 0) {
                 //  no rows were deleted =  error with  delete.
@@ -243,6 +240,28 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         }
         // Close the activity
         finish();
+    }
+
+    private AlertDialog AskOption() {       //https://stackoverflow.com/questions/11740311/android-confirmation-message-for-delete
+        AlertDialog myQuittingDialogBox = new AlertDialog.Builder(this)
+                //set message, title, and icon
+                .setTitle(getString(R.string.action_delete))
+                .setMessage(getString(R.string.action_delete_book))
+                .setIcon(R.drawable.delete)
+                .setPositiveButton(getString(R.string.action_delete), new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //your deleting code
+                        deleteBook();
+                    }
+                })
+                .setNegativeButton(getString(R.string.action_cancel_delete), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        return myQuittingDialogBox;
     }
 
     @Override
@@ -271,14 +290,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             case R.id.action_save:
                 // Save record
                 saveBook();
-                // Exit activity
-                finish();
                 return true;
             // Respond to "Delete" menu option
             case R.id.action_delete:
-                deleteBook();
-                // Exit activity
-                finish();
+                AlertDialog diaBox = AskOption();
+                diaBox.show();
                 return true;
             // Respond to "Up" arrow button in the app bar
             case android.R.id.home:
@@ -392,7 +408,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 ContextCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             Intent callIntent = new Intent(Intent.ACTION_DIAL);
             callIntent.setData(Uri.parse("tel:" + supplierPhoneEditText.getText().toString().trim()));
-            startActivity(callIntent);
+            if (callIntent.resolveActivity(getPackageManager()) != null) { //submission 2 correction
+                startActivity(callIntent);
+            }
             return;
         }
     }

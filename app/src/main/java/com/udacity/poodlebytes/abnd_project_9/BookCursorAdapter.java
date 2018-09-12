@@ -64,10 +64,10 @@ public class BookCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, final Context context, final Cursor cursor) {
         // Find individual views that we want to modify in the list item layout
-        TextView nameTextView = view.findViewById(R.id.tv_name);
-        final TextView qtyTextView = view.findViewById(R.id.tv_qty);
-        TextView priceTextView = view.findViewById(R.id.tv_price);
-
+        final ViewHolder holder = new ViewHolder();
+        holder.nameTextView = view.findViewById(R.id.tv_name);
+        holder.qtyTextView = view.findViewById(R.id.tv_qty);
+        holder.priceTextView = view.findViewById(R.id.tv_price);
 
         // Find the columns of pet attributes that we're interested in
 
@@ -81,15 +81,14 @@ public class BookCursorAdapter extends CursorAdapter {
 
         Button saleButton = view.findViewById(R.id.sale);
 
-
         // If the price  is empty (should NEVER be!)
         if (TextUtils.isEmpty(bookPrice)) {
             bookPrice = context.getString(R.string.number_unknown);
         }
 
-        nameTextView.setText(bookName);
-        qtyTextView.setText(bookQty);
-        priceTextView.setText(bookPrice);
+        holder.nameTextView.setText(bookName);
+        holder.qtyTextView.setText(bookQty);
+        holder.priceTextView.setText(bookPrice);
 
 
         // Change the quantity when you click the button
@@ -100,7 +99,7 @@ public class BookCursorAdapter extends CursorAdapter {
             @Override
             public void onClick(View v) {
 
-                int qty = Integer.parseInt(qtyTextView.getText().toString().trim());
+                int qty = Integer.parseInt(holder.qtyTextView.getText().toString().trim());
                 Log.i(TAG, "JR sale click qty: " + qty);
                 if (qty > 0) {
                     qty = qty - 1;
@@ -115,6 +114,11 @@ public class BookCursorAdapter extends CursorAdapter {
                 context.getContentResolver().update(contentUri, values, null, null);
             }
         });
+    }
 
+    static class ViewHolder {
+        TextView nameTextView;
+        TextView qtyTextView;
+        TextView priceTextView;
     }
 }
