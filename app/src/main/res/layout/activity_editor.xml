@@ -77,7 +77,7 @@
                 style="@style/EditorFieldStyle"
                 android:hint="@string/hint_book_price"
                 android:layout_marginStart="@dimen/large_margin"
-                android:inputType="numberDecimal" />
+                android:inputType="number" />
 
             <LinearLayout
                 android:layout_width="match_parent"
