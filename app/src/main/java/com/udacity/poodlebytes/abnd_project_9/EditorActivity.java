@@ -6,18 +6,21 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -42,6 +45,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private EditText qtyEditText;
     private EditText supplierEditText;
     private EditText supplierPhoneEditText;
+    private Button addOneBook;
+    private Button deleteOneBook;
+    private Button callSupplier;
+
 
     /**
      * Boolean flag that keeps track of whether the book has been edited (true) or not (false)
@@ -107,6 +114,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         qtyEditText = findViewById(R.id.edit_book_qty);
         supplierEditText = findViewById(R.id.edit_book_supplier);
         supplierPhoneEditText = findViewById(R.id.edit_book_supplier_phone);
+        addOneBook = findViewById(R.id.plus_one);
+        deleteOneBook = findViewById(R.id.minus_one);
+        callSupplier = findViewById(R.id.call);
+
 
         // Setup OnTouchListeners on all the input fields
         nameEditText.setOnTouchListener(mTouchListener);
@@ -114,7 +125,44 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         qtyEditText.setOnTouchListener(mTouchListener);
         supplierEditText.setOnTouchListener(mTouchListener);
         supplierPhoneEditText.setOnTouchListener(mTouchListener);
+
+        addOneBook.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                int qty = 0;
+                String strQty = qtyEditText.getText().toString().trim();
+                if (!TextUtils.isEmpty(strQty)) {
+                    qty = Integer.parseInt(strQty);
+                }
+                qty = qty + 1;
+                qtyEditText.setText(Integer.toString(qty));
+            }
+        });
+
+        deleteOneBook.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                int qty = 0;
+                String strQty = qtyEditText.getText().toString().trim();
+                if (!TextUtils.isEmpty(strQty)) {
+                    qty = Integer.parseInt(strQty);
+                }
+                if (qty > 0) {
+                    qty = qty - 1;
+                }
+                qtyEditText.setText(Integer.toString(qty));
+            }
+        });
+
+        callSupplier.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                callPhone();
+            }
+        });
+
+
+
     }//end onCreate
+
+    //handle buttons
 
     private void saveBook() {
         // Read from input fields
@@ -125,10 +173,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         String supplierPhoneString = supplierPhoneEditText.getText().toString().trim();
 
         if (currentBookUri == null &&
-                TextUtils.isEmpty(nameString) && TextUtils.isEmpty(priceString) &&
-                TextUtils.isEmpty(qtyString) && TextUtils.isEmpty(supplierString) &&
+                TextUtils.isEmpty(nameString) || TextUtils.isEmpty(priceString) ||
+                TextUtils.isEmpty(qtyString) || TextUtils.isEmpty(supplierString) ||
                 TextUtils.isEmpty(supplierPhoneString)) {
-            Log.i(TAG, "JR - new record");
+            Toast.makeText(getApplicationContext(), "Please, fill in the blank fields.", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -269,6 +317,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         return new CursorLoader(this, currentBookUri, projection, null, null, null);
     }
 
+
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         // Bail early if the cursor is null or there is less than 1 row in the cursor
@@ -338,4 +387,13 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         showUnsavedChangesDialog(discardButtonClickListener);
     }
 
+    private void callPhone() {
+        if (Build.VERSION.SDK_INT >= 23 &&
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+            callIntent.setData(Uri.parse("tel:" + supplierPhoneEditText.getText().toString().trim()));
+            startActivity(callIntent);
+            return;
+        }
+    }
 }//end editor activity

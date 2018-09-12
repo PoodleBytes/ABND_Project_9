@@ -55,6 +55,14 @@ public class BookDbHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // v1 - nothing to do!
+        if (newVersion > oldVersion) {
+            dropBookInventoryTable(db);
+        }
+        onCreate(db);
+    }
+
+    private void dropBookInventoryTable(SQLiteDatabase db) {
+        String sql = "DROP TABLE IF EXISTS " + BookEntry.TABLE_NAME;
+        db.execSQL(sql);
     }
 }

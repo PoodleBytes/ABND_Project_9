@@ -19,7 +19,8 @@ public class BookProvider extends ContentProvider {
     /**
      * Tag for the log messages
      */
-    public static final String LOG_TAG = BookProvider.class.getSimpleName();
+    public static final String TAG = BookProvider.class.getSimpleName();
+    
 
     /**
      * URI Matcher
@@ -122,7 +123,7 @@ public class BookProvider extends ContentProvider {
         long id = database.insert(BookEntry.TABLE_NAME, null, values);
         // If ID = -1,  insertion failed. Log an error and return null.
         if (id == -1) {
-            Log.e(LOG_TAG, "Failed to insert row for " + uri);
+            Log.e(TAG, "Failed to insert row for " + uri);
             return null;
         }
 
@@ -158,6 +159,7 @@ public class BookProvider extends ContentProvider {
      */
 
     private int updateBook(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        Log.i(TAG, "JR updateBook" + values.toString() + " selection " + selection);
         // If the {@link BookEntry#COLUMN_XXX} key is present,
         // check that the name value is not null.
         if (values.containsKey(BookEntry.COLUMN_BOOK_NAME)) {

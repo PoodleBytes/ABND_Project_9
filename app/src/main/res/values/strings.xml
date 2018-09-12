@@ -42,8 +42,14 @@
     <string name="discard">Discard</string>
     <string name="keep_editing">Keep Editing</string>
 
+    <string name="main_qty">Quantiy: </string>
+    <string name="main_price">Price: $</string>
+    <string name="main_sale">Sale!</string>
+
     <!-- Toast message in editor when current book was successfully deleted [CHAR LIMIT=NONE] -->
+
     <string name="editor_delete_book_successful">Book deleted</string>
+    <string name="editor_call_supplier">Call Supplier</string>
     <string name="number_unknown">T.B.D.</string>
     <string name="supplier_unknown">T.B.D.</string>
     <string name="supplier_phone_unknown">N/A</string>
